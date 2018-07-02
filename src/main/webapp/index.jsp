@@ -14,7 +14,7 @@
     </head>
     <body>
         
-        <form action="validateLogin.do" method="post">
+        <html:form action="validateLogin.do" method="post">
             <table border="0">
                 <tbody>
                     <tr>
@@ -41,6 +41,6 @@
                     </tr>
                 </tbody>
             </table>            
-        </form>
+        </html:form>
     </body>
 </html>
