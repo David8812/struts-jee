@@ -10,11 +10,13 @@ import javax.ejb.EJB;
 import javax.ejb.embeddable.EJBContainer;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Group;
 import model.User;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import service.impl.GroupServiceImpl;
 import service.impl.UserServiceImpl;
 
 /**
@@ -23,7 +25,8 @@ import service.impl.UserServiceImpl;
  */
 public class SaveUserAction extends Action {
 
-    private UserServiceImpl service;
+    UserServiceImpl service = new UserServiceImpl();
+    GroupServiceImpl gservice = new GroupServiceImpl();
 
     /**
      * This is the action called from the Struts framework.
@@ -48,23 +51,24 @@ public class SaveUserAction extends Action {
         System.out.println("Usuario: " + userName + " Contraseña: " + password + " Confirmacion Contraseña: " + confirmPassword + " Roll: " + roll);
 
         System.out.println("Servicio: " + service);
-        
+
         if (password.equals(confirmPassword)) {
-            
-            EJBContainer container = EJBContainer.createEJBContainer();
-            System.out.println("EJBContainer instantiated");
-            
-            service = (UserServiceImpl) container.getContext().lookup("java:global/struts-javaee/UserServiceImpl!service.impl.UserServiceImpl");
 
-            System.out.println("EJB obtenido");
-            
-            User u = new User(userName, password, roll);
+            User u = new User(userName, password);
 
-            if(service == null) {
+            System.out.println("obteniendo grupo...");
+
+            Group g = gservice.findById(Integer.parseInt(roll));
+
+            System.out.println("El grupo obtenido es: " + g);
+
+            u.setGroup(g);
+
+            if (service == null) {
                 System.out.println("Ups!!! servicio es NULL");
             } else {
                 System.out.println("servicio OK!");
-                
+
                 boolean inserted = service.insert(u);
 
                 request.setAttribute("insertationState", inserted);

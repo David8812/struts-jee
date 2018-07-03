@@ -13,7 +13,7 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <glassfish.embedded-static-shell.jar>
-            C:\Users\David\Downloads\glassfish4\glassfish\lib\embedded\glassfish-embedded-static-shell.jar
+            C:\Users\administradorcito\Downloads\glassfish4\glassfish\lib\embedded\glassfish-embedded-static-shell.jar
         </glassfish.embedded-static-shell.jar>
     </properties>
     
@@ -24,6 +24,11 @@
             <version>4.1.2</version>
             <scope>system</scope>
             <systemPath>${glassfish.embedded-static-shell.jar}</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+            <version>2.7.7</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -90,13 +95,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.16</version>
-                <configuration>
-                    <reuseForks>false</reuseForks>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

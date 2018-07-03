@@ -7,13 +7,16 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -38,23 +41,25 @@ public class User implements Serializable {
     @Basic(optional = false)
     private String password;
     
-    private String roll = "USER";
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_grupo", referencedColumnName = "id_grupo")
+    private Group group;
 
     public User() {
     }
 
-    public User(String userName, String password, String roll) {
+    public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
-        this.roll = roll;
     }
 
-    public void setRoll(String roll) {
-        this.roll = roll;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
-    public String getRoll() {
-        return roll;
+    public Group getGroup() {
+        return group;
     }
 
     public void setUserName(String userName) {
@@ -95,7 +100,7 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 17 * hash + idUsuario.hashCode();
+        hash = 17 * hash + (idUsuario != null ? idUsuario.hashCode() : 0);
         hash = 17 * hash + userName.hashCode();
         hash = 17 * hash + password.hashCode();
         return hash;
@@ -103,6 +108,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("[ID:%s, User name: %s, Password: %s]", idUsuario, userName, password);
+        return String.format("[ID:%s, User name: %s, Password: %s, Group:%s]", idUsuario, userName, password, group);
     }
 }

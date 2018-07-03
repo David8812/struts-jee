@@ -8,6 +8,7 @@
 <struts-config>
     <form-beans>
         <form-bean name="userFormBean" type="form.UserFormBean"></form-bean>
+        <form-bean name="groupFormBean" type="form.GroupFormBean"></form-bean>
     </form-beans>
     
     <global-exceptions>
@@ -18,10 +19,8 @@
         <forward name="welcome"  path="/Welcome.do"/>
     </global-forwards>
 
-    <action-mappings>
-        <action path="/Welcome" forward="/welcomeStruts.jsp"/>
-        
-        <action path="/register" forward="/register.jsp" />
+    <action-mappings>        
+        <action path="/register" forward="/register.jsp"/>
         
         <action path="/saveUser" name="userFormBean" scope="request" type="action.SaveUserAction">
             <forward name="keepPage" path="/register.jsp"/>
@@ -31,7 +30,16 @@
             <forward name="valido" path="/index.jsp" />
             <forward name="noValido" path="/index.jsp" />
         </action>
-        <action input="/" name="userFormBean" path="/saveUserAction" scope="session" type="action.SaveUserAction"/>
+        
+        <action path="/logged/createGroup" forward="/group.jsp"/>
+        
+        <action path="/saveGroup" name="groupFormBean" scope="request" type="action.SaveGroupAction">
+            <forward name="keepPage" path="/group.jsp"/>
+        </action>
+        
+        <action path="/logged/closeSession" type="action.CloseSessionAction">
+            <forward name="keepPage" path="/" redirect="true" />
+        </action>
         
     </action-mappings>
     

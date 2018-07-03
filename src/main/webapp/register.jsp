@@ -1,8 +1,9 @@
-<%-- 
-    Document   : register
-    Created on : 29/06/2018, 11:27:13 AM
-    Author     : David
---%>
+<%
+    response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+    response.setDateHeader("Expires", 0); //prevents caching at the proxy server
+    response.setHeader("Cache-Control", "no-store");
+%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
@@ -41,8 +42,8 @@
                         <td>
                             <html:select name="userFormBean" property="roll">
                                 <html:option value="0">Seleccione el roll</html:option>
-                                <html:option value="1">USER</html:option>
-                                <html:option value="2">ADMIN</html:option>
+                                <html:option value="1">ADMIN</html:option>
+                                <html:option value="2">USER</html:option>
                             </html:select>
                         </td>
                     </tr>
