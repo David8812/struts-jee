@@ -23,7 +23,6 @@ import service.impl.UserServiceImpl;
  */
 public class SaveUserAction extends Action {
 
-    @EJB
     private UserServiceImpl service;
 
     /**
@@ -53,8 +52,12 @@ public class SaveUserAction extends Action {
         if (password.equals(confirmPassword)) {
             
             EJBContainer container = EJBContainer.createEJBContainer();
-            Object o = container.getContext().lookup("java:global/struts-javaee/UserServiceImpl!service.impl.UserServiceImpl");
+            System.out.println("EJBContainer instantiated");
+            
+            service = (UserServiceImpl) container.getContext().lookup("java:global/struts-javaee/UserServiceImpl!service.impl.UserServiceImpl");
 
+            System.out.println("EJB obtenido");
+            
             User u = new User(userName, password, roll);
 
             if(service == null) {
